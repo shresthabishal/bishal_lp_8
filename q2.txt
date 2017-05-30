@@ -1,0 +1,41 @@
+public class CapitalValidator {
+
+	CapitalValidator(){
+		
+	}
+	
+	public static boolean test(String str){
+		boolean first, second, third;
+		boolean thirdSet = second = third = false;
+		first =  isCapital(str.charAt(0));
+		for(int i = 1; i < str.length(); i++){
+			
+			if(first){  //Entry point for condition while first letter is capital
+				if(i == 1){		
+					second = isCapital(str.charAt(1));
+				} else{
+					third = isCapital(str.charAt(i));
+					thirdSet = true;
+				}
+				if(thirdSet){
+					if(second ^ third) return false;   //checks conditions for ABCDE, Abcde i.e.true if different
+				}
+			} else{	//if aBC or abc 
+				if(i == 1){
+					if(second = isCapital(str.charAt(1))) return false;		//if aB return false i.e. if second is capital while first is small
+				} else{
+					third = isCapital(str.charAt(i));
+					thirdSet = true;
+				}
+				if(thirdSet){
+					if(second ^ third) return false;		//if abC return false i.e., when there is mismatch in cases
+				}
+			}
+		}
+		return true;
+	}
+	
+	private static boolean isCapital(char c){  //check for capital letter
+		return ((c >= 'A') && (c <= 'Z'));
+	}
+}
